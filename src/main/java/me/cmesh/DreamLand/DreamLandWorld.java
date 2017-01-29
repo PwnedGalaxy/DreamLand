@@ -60,28 +60,6 @@ public class DreamLandWorld
 		}
 		catch(NullPointerException e){}
 		
-		if(Fly)
-		{
-			Plugin p = plugin.getServer().getPluginManager().getPlugin("SmoothFlight");
-			if (p != null && p.isEnabled()) 
-			{
-				me.cmesh.SmoothFlight.SmoothFlight smooth = ((me.cmesh.SmoothFlight.SmoothFlight)p);
-				if(smooth != null)
-				{
-					try
-					{
-						smooth.addDreamWorld(World);
-					return;
-					}
-					catch (Exception e)
-					{
-						DreamLand.log.warning("Smoothflight is out of date, this version is incompatible with dreamland");
-					}
-				}
-				DreamLand.log.warning("To fly in dreamland, Smoothflight must be enabled");
-			}
-			DreamLand.log.warning("To fly in dreamland, please install Smoothflight");
-		}
 	}
 	
 	public void create()

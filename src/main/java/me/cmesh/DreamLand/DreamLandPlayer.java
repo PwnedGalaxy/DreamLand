@@ -119,22 +119,17 @@ public class DreamLandPlayer
 
 	public Boolean hasPermission(String permission, Boolean expected)
 	{
-		boolean permissions = false;
 		boolean permissionsEx = false;
-		if(plugin.PermissionEnabled())
-		{
-			permissions = plugin.permissionsPlugin.permission(player, permission);
-		}
 		if(plugin.PermissionExEnabled())
 		{
 			permissionsEx = plugin.permissionsExPlugin.has(player, permission);
 		}
-		return player.isOp() || player.hasPermission(permission) || permissions || permissionsEx;
+		return player.isOp() || player.hasPermission(permission) || permissionsEx;
 	}
 	
 	private class health
 	{
-		private int health;
+		private double health;
 		private int food;
 		private float enchant;
 		

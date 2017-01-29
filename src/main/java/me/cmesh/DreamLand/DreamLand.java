@@ -15,8 +15,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import ru.tehkode.permissions.PermissionManager;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
-import com.nijiko.permissions.PermissionHandler;
-
 public class DreamLand extends JavaPlugin
 {
 	public static final Logger log = Logger.getLogger("Minecraft");
@@ -25,7 +23,6 @@ public class DreamLand extends JavaPlugin
 	public DreamLandWorld dream = new DreamLandWorld(this);
 	public DreamLandWorld base = new DreamLandWorld(this);
 	
-    public PermissionHandler permissionsPlugin = null;
     public PermissionManager permissionsExPlugin = null;
 	
 	public DreamLandOptions options = new DreamLandOptions(this);
@@ -53,10 +50,6 @@ public class DreamLand extends JavaPlugin
 		new DreamLandWeatherListener(this);
 	}
 	
-	public boolean PermissionEnabled()
-	{
-		return permissionsPlugin != null;
-	}
 	public boolean PermissionExEnabled()
 	{
 		return permissionsExPlugin != null;
@@ -64,11 +57,6 @@ public class DreamLand extends JavaPlugin
 	
 	private void SetupPermissions()
 	{
-		Plugin p = getServer().getPluginManager().getPlugin("Permissions");
-		if (p != null && p.isEnabled()) 
-		{
-			permissionsPlugin = ((com.nijikokun.bukkit.Permissions.Permissions)p).getHandler();
-		}
 		
 		Plugin q = getServer().getPluginManager().getPlugin("PermissionsEx");
         if (q != null && q.isEnabled()) 
