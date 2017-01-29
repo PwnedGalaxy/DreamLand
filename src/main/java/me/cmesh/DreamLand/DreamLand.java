@@ -88,6 +88,15 @@ public class DreamLand extends JavaPlugin
 					return true;
 				}
 			}
+
+                        if (commandLabel.equalsIgnoreCase("dream"))
+                        {
+                                if(!player.Dreaming())
+                                {
+                                        player.enterDream(player.self().getLocation(), false);
+                                        return true;
+                                }
+                        }
 		}
 		return false;
 	}

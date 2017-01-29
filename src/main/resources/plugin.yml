@@ -1,6 +1,7 @@
 name: DreamLand
 main: me.cmesh.DreamLand.DreamLand
-version: 4.1
+version: 4.2
+author: AKP and some other guy who didn't have his name in the plugin.yml.
 softdepend: [SmoothFlight]
 commands:
    wakeup:
@@ -11,3 +12,6 @@ commands:
       description: User will set the world's spawn location
       usage: |
           /setdreamspawn
+   dream:
+      description: Hush little baby, don't say a word... and nevermind that noise you heard...
+      usage: /dream
