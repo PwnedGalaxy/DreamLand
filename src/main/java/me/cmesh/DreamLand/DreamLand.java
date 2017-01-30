@@ -3,6 +3,8 @@ package me.cmesh.DreamLand;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -91,10 +93,42 @@ public class DreamLand extends JavaPlugin
 
                         if (commandLabel.equalsIgnoreCase("dream"))
                         {
-                                if(!player.Dreaming())
+                                if (args.length <= 0) 
                                 {
-                                        player.enterDream(player.self().getLocation(), false);
-                                        return true;
+                                        if(!(sender instanceof Player))
+                                        {
+                                                sender.sendMessage(ChatColor.RED + "Computers don't dream. Give me a player.");
+                                                return true;
+                                        }
+
+                                        if(sender.hasPermission("dream.self") && !player.Dreaming())
+                                        {
+                                                player.enterDream(player.self().getLocation(), false);
+                                                return true;
+                                        } else {
+                                                sender.sendMessage(ChatColor.RED + "I'm sorry " + player.self().getDisplayName() + ", I'm afraid I can't let you do that.");
+                                                return true;
+                                        } 
+                                } else {
+                                        if(!sender.hasPermission("dream.other"))
+                                        {
+                                                sender.sendMessage(ChatColor.RED + "I'm sorry " + player.self().getDisplayName() + ", I'm afraid I can't let you do that.");
+                                                return true;
+                                        }
+
+                                        Player target = (Bukkit.getServer().getPlayer(args[0]));
+                                        if (target == null)
+                                        {
+                                                sender.sendMessage(ChatColor.RED + "Who da fuk is " + ChatColor.GREEN + args[0] + ChatColor.RED + "???");
+                                                return true;
+                                        }
+
+                                        DreamLandPlayer t = player(target);
+                                        if(!t.Dreaming())
+                                        {
+                                                t.enterDream(t.self().getLocation(), false);
+                                                return true;
+                                        }
                                 }
                         }
 		}
