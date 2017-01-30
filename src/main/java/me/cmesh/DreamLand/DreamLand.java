@@ -90,49 +90,50 @@ public class DreamLand extends JavaPlugin
 					return true;
 				}
 			}
-
-                        if (commandLabel.equalsIgnoreCase("dream"))
+		}
+                if (commandLabel.equalsIgnoreCase("dream"))
+                {
+                        if (args.length <= 0)
                         {
-                                if (args.length <= 0) 
+                                if(!(sender instanceof Player))
                                 {
-                                        if(!(sender instanceof Player))
-                                        {
-                                                sender.sendMessage(ChatColor.RED + "Computers don't dream. Give me a player.");
-                                                return true;
-                                        }
+                                        sender.sendMessage(ChatColor.RED + "Computers don't dream. Give me a player.");
+                                        return true;
+                                }
 
-                                        if(sender.hasPermission("dream.self") && !player.Dreaming())
-                                        {
-                                                player.enterDream(player.self().getLocation(), false);
-                                                return true;
-                                        } else {
-                                                sender.sendMessage(ChatColor.RED + "I'm sorry " + player.self().getDisplayName() + ", I'm afraid I can't let you do that.");
-                                                return true;
-                                        } 
+                                DreamLandPlayer player = player((Player)sender);
+
+                                if(sender.hasPermission("dream.self") && !player.Dreaming())
+                                {
+                                        player.enterDream(player.self().getLocation(), false);
+                                        return true;
                                 } else {
-                                        if(!sender.hasPermission("dream.other"))
-                                        {
-                                                sender.sendMessage(ChatColor.RED + "I'm sorry " + player.self().getDisplayName() + ", I'm afraid I can't let you do that.");
-                                                return true;
-                                        }
+                                        sender.sendMessage(ChatColor.RED + "I'm sorry " + ChatColor.GREEN + player.self().getDisplayName() + ChatColor.RED + ", I'm afraid I can't let you do that.");
+                                        return true;
+                                }
+                        } else {
+                                if(!sender.hasPermission("dream.other"))
+                                {
+                                        sender.sendMessage(ChatColor.RED + "I'm sorry " + ChatColor.GREEN + ((Player) sender).getDisplayName() + ChatColor.RED + ", I'm afraid I can't let you do that.");
+                                        return true;
+                                }
 
-                                        Player target = (Bukkit.getServer().getPlayer(args[0]));
-                                        if (target == null)
-                                        {
-                                                sender.sendMessage(ChatColor.RED + "Who da fuk is " + ChatColor.GREEN + args[0] + ChatColor.RED + "???");
-                                                return true;
-                                        }
+                                Player target = (Bukkit.getServer().getPlayer(args[0]));
+                                if (target == null)
+                                {
+                                        sender.sendMessage(ChatColor.RED + "Who da fuk is " + ChatColor.GREEN + args[0] + ChatColor.RED + "???");
+                                        return true;
+                                }
 
-                                        DreamLandPlayer t = player(target);
-                                        if(!t.Dreaming())
-                                        {
-                                                t.enterDream(t.self().getLocation(), false);
-                                                return true;
-                                        }
+                                DreamLandPlayer t = player(target);
+                                if(!t.Dreaming())
+                                {
+                                        t.enterDream(t.self().getLocation(), false);
+                                        return true;
                                 }
                         }
-		}
-		return false;
+                }
+		return true;
 	}
 	
 	public void onDisable()
